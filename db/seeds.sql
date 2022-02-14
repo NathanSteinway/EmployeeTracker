@@ -6,8 +6,7 @@ VALUES
 ('Executive Office'),
 ('Crowd Control'),
 ('Crafting'),
-('Accounting')
-
+('Accounting');
 
 INSERT INTO role (title, salary, department_id)
 VALUES
@@ -16,7 +15,7 @@ VALUES
 ('Assistant Guild Lead', 80000, 3),
 ('Class/Role Officer', 70000, 3),
 ('Crafter', 90000, 4),
-('Raider', 50000, 1)
+('Raider', 50000, 1);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES 
