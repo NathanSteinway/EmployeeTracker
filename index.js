@@ -22,8 +22,8 @@ connection.connect(function(err){
 function showOptions() {
   inquirer
     .prompt({
-      name: 'list',
-      type: 'option',
+      name: 'action',
+      type: 'list',
       message: 'You are now viewing our employee database. What would you like to do next?',
       choices: [
         'View all employees',
