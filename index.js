@@ -1,8 +1,10 @@
+//import necessary dependencies
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const consoleTable = require('console.table');
 require('dotenv').config();
 
+//Connect the MySQL database for inquirer functionality
 const connection = mysql.createConnection(
     {
       host: 'localhost', 
@@ -19,6 +21,7 @@ connection.connect(function(err){
   showOptions();
 })
 
+//Primary inquirer function that shows the user everything they can do in the application.
 function showOptions() {
   inquirer
     .prompt({
@@ -61,6 +64,7 @@ function showOptions() {
     });
 };
 
+//Upon selecting View Employees, console.table will present a table called employee to the user in the command line.
 function viewEmployees() {
   var employeeQuery = 'SELECT * FROM employee';
     connection.query(employeeQuery, function(err, res) {
@@ -70,6 +74,7 @@ function viewEmployees() {
     })
 }
 
+//Upon selecting View Departments, console.table will present a table called department to the user in the command line.
 function viewDepartments() {
   var departmentQuery = 'SELECT * FROM department';
     connection.query(departmentQuery, function(err, res) {
@@ -80,6 +85,7 @@ function viewDepartments() {
 
 }
 
+//Upon selecting View Roles, console.table will present a table called role to the user in the command line.
 function viewRoles() {
   var roleQuery = 'SELECT * FROM role';
     connection.query(roleQuery, function(err, res){
@@ -89,6 +95,7 @@ function viewRoles() {
     })
 }
 
+//Upon selecting Add Employee, the user is prompted by inquirer for information that is then passed into the MySQL database using connection queries.
 function addEmployee() {
   inquirer
     .prompt([
@@ -113,6 +120,8 @@ function addEmployee() {
         message: 'What is this employees role id?',
       }
     ])
+
+    //Inserts new info into employee table
     .then(function (answer){
       connection.query('INSERT INTO employee SET ?',
       {
@@ -130,6 +139,7 @@ function addEmployee() {
     })
 }
 
+//Upon selecting Add Department, the user is prompted by inquirer for information that is then passed into the MySQL database using connection queries.
 function addDepartment() {
   inquirer
     .prompt([
@@ -139,6 +149,8 @@ function addDepartment() {
         message: 'What is your new department called?'
       }
       ])
+
+      //Inserts information into department table using SET ? and the name of a column.
       .then(function (answer) {
         connection.query('INSERT INTO department SET ?',
             {
@@ -154,6 +166,7 @@ function addDepartment() {
       })
 }
 
+//Upon selecting Add Role, the user is prompted by inquirer for information that is then passed into the MySQL database using connection queries.
 function addRole() {
   inquirer
     .prompt([
@@ -173,6 +186,8 @@ function addRole() {
         message: 'What department does this role work for? (Insert Department ID)'
       }
       ])
+
+      //Inserts the above information into role table using SET ? and a list of gathered columns.
       .then(function (answer) {
         connection.query('INSERT INTO role SET ?',
           {
