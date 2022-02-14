@@ -5,6 +5,7 @@ const consoleTable = require('console.table');
 require('dotenv').config();
 
 //Connect the MySQL database for inquirer functionality
+//Particularly important: refers to .env so that vital information is hidden!
 const connection = mysql.createConnection(
     {
       host: 'localhost', 
@@ -13,9 +14,11 @@ const connection = mysql.createConnection(
       database: process.env.DB_NAME
     },
 
+    //Lets the user know we're connected.
     console.log('You are now connected to employees database.')
 );
 
+//If no errors, launch the inquirer prompts.
 connection.connect(function(err){
   if (err) throw err;
   showOptions();
@@ -37,7 +40,9 @@ function showOptions() {
         'Add a role',
         'Update employee role',
         ]
-      }).then(function (answer) {
+      })
+      //Switch case makes it easy to launch different functions based on what a user selects.
+      .then(function (answer) {
           switch (answer.action) {
             case 'View all employees':
                 viewEmployees();
@@ -130,6 +135,8 @@ function addEmployee() {
         manager_id: answer.manager_id,
         role_id: answer.role,
       });
+
+      //This is here to show the user the affected table, making the user experience clearer.
       var employeeQuery = 'SELECT * FROM employee';
       connection.query(employeeQuery, function(err, res){
         if (err) throw err;
@@ -156,6 +163,8 @@ function addDepartment() {
             {
                 name: answer.newDepartment
             });
+        
+        //This is here to show the user the affected table, making the user experience clearer.
         var departmentQuery = 'SELECT * FROM department';
         connection.query(departmentQuery, function(err, res){
           if (err) throw err;
@@ -195,6 +204,7 @@ function addRole() {
             salary: answer.salary,
             department_id: answer.Department
           });
+        //This is here to show the user the affected table, making the user experience clearer.
         var roleQuery = 'SELECT * FROM role';
         connection.query(roleQuery, function(err, res){
           if (err) throw err;
