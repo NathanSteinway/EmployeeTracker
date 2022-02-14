@@ -189,7 +189,3 @@ function addRole() {
       })
 };
 
-function updateRole() {
-
-}
-
