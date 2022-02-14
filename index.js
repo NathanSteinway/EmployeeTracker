@@ -120,23 +120,74 @@ function addEmployee() {
         last_name: answer.last_name,
         manager_id: answer.manager_id,
         role_id: answer.role,
-      },
-      function (err) {
+      });
+      var employeeQuery = 'SELECT * FROM employee';
+      connection.query(employeeQuery, function(err, res){
         if (err) throw err;
-        console.log('Another for the boneyard!');
-        console.table('All Employees:');
+        console.table('All Employees:', res);
         showOptions();
       })
     })
 }
 
 function addDepartment() {
-
+  inquirer
+    .prompt([
+      {
+        name: 'newDepartment', 
+        type: 'input', 
+        message: 'What is your new department called?'
+      }
+      ])
+      .then(function (answer) {
+        connection.query('INSERT INTO department SET ?',
+            {
+                name: answer.newDepartment
+            });
+        var departmentQuery = 'SELECT * FROM department';
+        connection.query(departmentQuery, function(err, res){
+          if (err) throw err;
+          console.table('All Departments:', res);
+          showOptions();
+        })
+            
+      })
 }
 
 function addRole() {
-
-}
+  inquirer
+    .prompt([
+      {
+        name: 'newRole', 
+        type: 'input', 
+        message: 'What is your new role called?'
+      },
+      {
+        name: 'salary',
+        type: 'input',
+        message: 'How much does this member make?'
+      },
+      {
+        name: 'Department',
+        type: 'input',
+        message: 'What department does this role work for? (Insert Department ID)'
+      }
+      ])
+      .then(function (answer) {
+        connection.query('INSERT INTO role SET ?',
+          {
+            title: answer.newRole,
+            salary: answer.salary,
+            department_id: answer.Department
+          });
+        var roleQuery = 'SELECT * FROM role';
+        connection.query(roleQuery, function(err, res){
+          if (err) throw err;
+          console.table('All Roles:', res);
+          showOptions();
+        })
+      })
+};
 
 function updateRole() {
 
