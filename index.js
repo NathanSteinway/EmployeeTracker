@@ -62,19 +62,72 @@ function showOptions() {
 };
 
 function viewEmployees() {
-
+  var employeeQuery = 'SELECT * FROM employee';
+    connection.query(employeeQuery, function(err, res) {
+        if (err) throw err;
+        console.table('All Employees:', res); 
+        showOptions();
+    })
 }
 
 function viewDepartments() {
+  var departmentQuery = 'SELECT * FROM department';
+    connection.query(departmentQuery, function(err, res) {
+        if(err)throw err;
+        console.table('All Departments:', res);
+        showOptions();
+    })
 
 }
 
 function viewRoles() {
-
+  var roleQuery = 'SELECT * FROM role';
+    connection.query(roleQuery, function(err, res){
+        if (err) throw err;
+        console.table('All Roles:', res);
+        showOptions();
+    })
 }
 
 function addEmployee() {
-
+  inquirer
+    .prompt([
+      {
+        name: 'first_name',
+        type: 'input',
+        message: 'What is their first name?',
+      },
+      {
+        name: 'last_name',
+        type: 'input',
+        message: 'What is their last name?',
+      },
+      {
+        name: 'manager_id',
+        type: 'input',
+        message: 'Who does this employee work for?',
+      },
+      {
+        name: 'role',
+        type: 'input',
+        message: 'What is this employees role id?',
+      }
+    ])
+    .then(function (answer){
+      connection.query('INSERT INTO employee SET ?',
+      {
+        first_name: answer.first_name,
+        last_name: answer.last_name,
+        manager_id: answer.manager_id,
+        role_id: answer.role,
+      },
+      function (err) {
+        if (err) throw err;
+        console.log('Another for the boneyard!');
+        console.table('All Employees:');
+        showOptions();
+      })
+    })
 }
 
 function addDepartment() {

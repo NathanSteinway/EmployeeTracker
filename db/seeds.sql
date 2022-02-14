@@ -19,9 +19,9 @@ VALUES
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES 
-('Ilya', 'Bellerose', 1, 457),
-('Vhin', 'Deezle', 6, 214),
-('Merikk', 'Onsgard', 2, 234),
-('Alsanna', 'Lhea', 4, 758),
-('Dobbert', 'Flobbert', 3, 542),
+('Ilya', 'Bellerose', 1, 1337),
+('Vhin', 'Deezle', 6, 666),
+('Merikk', 'Onsgard', 2, 1337),
+('Alsanna', 'Lhea', 4, 666),
+('Dobbert', 'Flobbert', 3, 666),
 ('Danky', 'Heat', 5, 666);
